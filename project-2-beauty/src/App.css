@@ -18,6 +18,14 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+.cart {
+  height: 20px;
+}
+
+.container {
+  display: flex;
+  flex-direction: space-between;
+}
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
