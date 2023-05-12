@@ -26,7 +26,7 @@ function Layout() {
 
             <h1 className="title" href="/">
               {" "}
-              Mezali et Moi{" "}
+              Mezali & Moi{" "}
             </h1>
           </a>
         </div>
@@ -39,11 +39,11 @@ function Layout() {
           <div>
             <h3>Coordonnées :</h3>
             <p className="adress">
-              IronSkydive
+              MEZALI & MOI
               <br />
-              33 Rue la Fayette,
+              4 rue Maillard,
               <br />
-              75009 Paris,
+              75011 Paris,
               <br />
               France
               <br />

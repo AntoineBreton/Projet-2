@@ -1,5 +1,5 @@
 import "./App.css";
-import Navbar from "./Layout";
+import Layout from "./Layout";
 import Home from "./Home";
 import { Routes, Route } from "react-router-dom";
 import AllProducts from "./AllProducts";
@@ -8,7 +8,6 @@ import EyesProducts from "./EyesProducts";
 import LipsProducts from "./LipsProducts";
 import NailsProducts from "./NailsProducts";
 import ProductsDetails from "./ProductsDetails";
-import Layout from "./Layout";
 
 function App() {
   return (

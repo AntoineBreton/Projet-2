@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import SearchProduct from "./SearchProduct";
 
 function LipsProducts() {
   const [lipsProducts, setLipsProducts] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     axios
@@ -24,19 +26,24 @@ function LipsProducts() {
 
   return (
     <>
+      <SearchProduct search={search} setSearch={setSearch} />
       <h1>Lips Products</h1>
-      {lipsProducts.map((product) => (
-        <div key={product.id}>
-          <Link to={`/product/${product.id}`}>
-            <div className="products-list">
-              <img src={product.image_link} alt={product.name} />
-              <h2>{product.name}</h2>
-              <p>Category: {product.product_type}</p>
-              <p>Price: {product.price} $</p>
-            </div>
-          </Link>
-        </div>
-      ))}
+      {lipsProducts
+        .filter((lipsProducts) =>
+          lipsProducts.name.toLowerCase().includes(search.toLowerCase())
+        )
+        .map((product) => (
+          <div key={product.id}>
+            <Link to={`/product/${product.id}`}>
+              <div className="products-list">
+                <img src={product.image_link} alt={product.name} />
+                <h2>{product.name}</h2>
+                <p>Category: {product.product_type}</p>
+                <p>Price: {product.price} $</p>
+              </div>
+            </Link>
+          </div>
+        ))}
     </>
   );
 }
