@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Mezali&Moi";
+  src: url("../public/font/adelia_3/adelia.ttf");
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -44,6 +49,7 @@
 } */
 
 h1 {
+  font-family: "Mezali&Moi";
   color: black;
 }
 
