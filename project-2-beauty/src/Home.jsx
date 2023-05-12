@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 function Home() {
   return (
     <>
-      <h1>Mezali et Moi</h1>
       <nav className="container">
         <ul id="homepageList" style={{ listStyle: `none` }}>
           <li>
@@ -14,7 +13,7 @@ function Home() {
           </li>
 
           <li>
-            <Link className="sections" to="/EyesProducts">
+            <Link className="sections" to="/eyes-products">
               <h2>EYES</h2>
             </Link>
           </li>

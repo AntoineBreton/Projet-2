@@ -21,8 +21,8 @@ function AllProducts() {
       <h1>All Products</h1>
       {allproduct.map((products) => (
         <div key={products.id}>
-          <Link to={`/all-products/${products.id}`}>
-            <div className="allproducts-list">
+          <Link to={`/product/${products.id}`}>
+            <div className="products-list">
               <img src={products.image_link} alt={products.name} />
               <h2>{products.name}</h2>
               <p>Category : {products.product_type}</p>
