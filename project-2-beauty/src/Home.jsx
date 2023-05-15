@@ -5,36 +5,39 @@ function Home() {
   return (
     <>
       <nav className="container">
-        <ul id="homepageList" style={{ listStyle: `none` }}>
-          <li>
-            <Link className="sections" to="/face-products">
+        <div className="container1">
+          <div className="button-face">
+            <Link to="/face-products">
               <h2>FACE</h2>
             </Link>
-          </li>
-
-          <li>
-            <Link className="sections" to="/eyes-products">
+          </div>
+          <div className="button-eyes">
+            <Link to="/eyes-products">
               <h2>EYES</h2>
             </Link>
-          </li>
+          </div>
+        </div>
 
-          <li>
-            <Link className="sections" to="/lips-products">
+        <div className="container2">
+          <div className="button-lips">
+            <Link to="/lips-products">
               <h2>LIPS</h2>
             </Link>
-          </li>
+          </div>
 
-          <li>
-            <Link className="sections" to="/nails-products">
+          <div className="button-nails">
+            <Link to="/nails-products">
               <h2>NAILS</h2>
             </Link>
-          </li>
-          <li>
-            <Link className="sections" to="/all-products">
+          </div>
+        </div>
+        <div className="container3">
+          <div className="button-all-products">
+            <Link to="/all-products">
               <h2>See All Products</h2>
             </Link>
-          </li>
-        </ul>
+          </div>
+        </div>
       </nav>
     </>
   );

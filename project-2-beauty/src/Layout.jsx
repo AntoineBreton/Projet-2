@@ -1,13 +1,16 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Layout() {
   return (
     <>
-      <nav className="layout">
-        <div className="container">
-          <a className="layout-brand" href="/">
+      <nav className="layout-container">
+        <div className="layout-banner">
+          <div className="welcome-text">
             <p>Find all your favorite beauty products on our website...</p>
+          </div>
+          <div className="flag">
             <img
               className="fr-flag"
               src="/assets/img/france.png"
@@ -18,17 +21,22 @@ function Layout() {
               src="/assets/img/royaume-uni.png"
               alt="UK"
             />
-            <img
-              className="cart"
-              src="/assets/img/istockphoto-1201806395-1024x1024.png"
-              alt="Cart"
-            />
-
+            <Link to="/cart">
+              <img
+                className="cart"
+                src="/assets/img/istockphoto-1201806395-1024x1024.png"
+                alt="Cart"
+              />
+            </Link>
+          </div>
+        </div>
+        <div className="layout-title">
+          <Link to="/">
             <h1 className="title" href="/">
               {" "}
-              Mezali & Moi{" "}
+              Mezali <span>&</span> Moi{" "}
             </h1>
-          </a>
+          </Link>
         </div>
       </nav>
 
@@ -37,7 +45,7 @@ function Layout() {
       <div className="footer-background">
         <footer className="footer-container">
           <div>
-            <h3>Coordonnées :</h3>
+            <h3>Contact Details :</h3>
             <p className="adress">
               MEZALI & MOI
               <br />
@@ -49,7 +57,7 @@ function Layout() {
               <br />
               +33 (0) 619 193 088
             </p>
-            <h3>Suivez-nous :</h3>
+            <h3>Follow us :</h3>
             <ul>
               <li>
                 <a href="#">Twitter</a>
