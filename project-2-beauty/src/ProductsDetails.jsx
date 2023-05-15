@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 
-function ProductsDetails() {
+function ProductsDetails({ handleAddToCart }) {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
 
@@ -18,12 +18,12 @@ function ProductsDetails() {
 
   return (
     <div>
-      <h1>Product</h1>
+      <h2>Product</h2>
       <div className="product-details">
         <img src={product.image_link} alt={product.name} />
         <h2>{product.name}</h2>
         <p>Category: {product.product_type}</p>
-        <p>Price: {product.price} $</p>
+        <p>Price: ${product.price} </p>
         <p>Description: {product.description}</p>
         <p>
           Where to shop:{" "}
@@ -32,10 +32,16 @@ function ProductsDetails() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            {product.product_link}
+            ({product.product_link})
           </a>
         </p>
-        <button className="addtocart-button"> Add To Cart </button>
+        <button
+          className="addtocart-button"
+          onClick={() => handleAddToCart(product)}
+        >
+          {" "}
+          Add To Cart{" "}
+        </button>
       </div>
     </div>
   );

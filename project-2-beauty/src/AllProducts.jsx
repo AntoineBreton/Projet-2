@@ -2,10 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import SearchProduct from "./SearchProduct";
+import SearchCategoryPrice from "./SearchCategoryPrice";
+import "./App.css";
 
-function AllProducts() {
-  const [allproduct, setAllProduct] = useState([]);
+function AllProducts({ handleAddToCart }) {
+  const [allProducts, setAllProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("");
+  const [priceRange, setPriceRange] = useState("");
+  const [productTypes, setProductTypes] = useState([]);
 
   useEffect(() => {
     axios
@@ -13,33 +19,88 @@ function AllProducts() {
         "http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline"
       )
       .then((response) => {
-        setAllProduct(response.data);
+        setAllProducts(response.data);
+        setFilteredProducts(response.data);
+
+        const types = [
+          ...new Set(response.data.map((product) => product.product_type)),
+        ];
+        setProductTypes(types);
       });
   }, []);
 
-  if (!allproduct.length) return <div>list of products on its way...</div>;
+  useEffect(() => {
+    filterProducts();
+  }, [search, category, priceRange]);
+
+  const filterProducts = () => {
+    let filtered = allProducts;
+
+    if (category) {
+      filtered = filtered.filter(
+        (product) =>
+          product.product_type.toLowerCase() === category.toLowerCase()
+      );
+    }
+
+    if (priceRange) {
+      switch (priceRange) {
+        case "category-1":
+          filtered = filtered.filter(
+            (product) => product.price >= 0 && product.price <= 10
+          );
+          break;
+        case "category-2":
+          filtered = filtered.filter(
+            (product) => product.price > 10 && product.price <= 20
+          );
+          break;
+        case "category-3":
+          filtered = filtered.filter((product) => product.price > 20);
+          break;
+        default:
+          break;
+      }
+    }
+
+    setFilteredProducts(filtered);
+  };
+
   return (
     <>
+      <h2>All Products</h2>
       <SearchProduct search={search} setSearch={setSearch} />
+      <SearchCategoryPrice
+        options={productTypes}
+        setCategory={setCategory}
+        setPriceRange={setPriceRange}
+      />
 
-      <h1>All Products</h1>
-      {allproduct
-        .filter((allproduct) =>
-          allproduct.name.toLowerCase().includes(search.toLowerCase())
-        )
-
-        .map((products) => (
-          <div key={products.id}>
-            <Link to={`/product/${products.id}`}>
-              <div className="products-list">
-                <img src={products.image_link} alt={products.name} />
-                <h2>{products.name}</h2>
-                <p>Category : {products.product_type}</p>
-                <p>Price : {products.price} $</p>
-              </div>
-            </Link>
-          </div>
-        ))}
+      <div className="main-container">
+        {filteredProducts
+          .filter((product) =>
+            product.name.toLowerCase().includes(search.toLowerCase())
+          )
+          .map((product) => (
+            <div key={product.id} className="container-all-products">
+              <Link to={`/product/${product.id}`}>
+                <div className="products-list">
+                  <img src={product.image_link} alt={product.name} />
+                  <h2>{product.name}</h2>
+                  <p>Category: {product.product_type}</p>
+                  <p>Price: ${product.price} </p>
+                </div>
+              </Link>
+              <button
+                className="addtocart-button"
+                onClick={() => handleAddToCart(product)}
+              >
+                {" "}
+                Add To Cart{" "}
+              </button>
+            </div>
+          ))}
+      </div>
     </>
   );
 }

@@ -1,36 +1,48 @@
 import React, { useState } from "react";
 
-function SearchCategoryPrice() {
-  const [searchCategory, setSearchCategory] = useState("");
-  const [searchPrice, setSearchPrice] = useState("");
+function SearchCategoryPrice(props) {
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedPrice, setSelectedPrice] = useState("");
+
+  const handleCategoryChange = (event) => {
+    setSelectedCategory(event.target.value);
+  };
+
+  const handlePriceChange = (event) => {
+    setSelectedPrice(event.target.value);
+  };
+
+  const handleAdvancedSearch = (event) => {
+    event.preventDefault();
+    props.setCategory(selectedCategory);
+    props.setPriceRange(selectedPrice);
+  };
 
   return (
-    <form>
-      <div className="search-category">
-        <label>Category : </label>
-        <br></br>
-        <select name="category">
-          <option value="-1" selected disabled>
-            Select a category
+    <form onSubmit={handleAdvancedSearch}>
+      <label htmlFor="category">Category:</label>
+      <select
+        id="category"
+        value={selectedCategory}
+        onChange={handleCategoryChange}
+      >
+        <option value="">All</option>
+        {props.options.map((option) => (
+          <option key={option} value={option}>
+            {option}
           </option>
-          <option value="bronzer">Bronzer</option>
-          <option value="blush">Blush</option>
-          <option value="foundation">Foundation</option>
-        </select>
-      </div>
-      <div className="search-price">
-        <label>Price : </label>
-        <br></br>
-        <select name="price">
-          <option value="-1" selected disabled>
-            Select a price
-          </option>
-          <option value="category-1">0$ to 10$</option>
-          <option value="category-2">10$ to 20$</option>
-          <option value="category-3">+20$</option>
-        </select>
-      </div>
-      <button>Advanced Search</button>
+        ))}
+      </select>
+
+      <label htmlFor="price">Price:</label>
+      <select id="price" value={selectedPrice} onChange={handlePriceChange}>
+        <option value="">All</option>
+        <option value="category-1">$0 - $10</option>
+        <option value="category-2">$10 - $20</option>
+        <option value="category-3">$20 and more</option>
+      </select>
+
+      <button type="submit">Advanced Search</button>
     </form>
   );
 }
