@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 
 function ProductsDetails({ handleAddToCart }) {
+  const dialog = useRef();
   const { id } = useParams();
   const [product, setProduct] = useState(null);
 
@@ -18,16 +19,45 @@ function ProductsDetails({ handleAddToCart }) {
 
   return (
     <div>
-      <h2>Product</h2>
+      <dialog ref={dialog} className="popup">
+        <button className="close-button" onClick={() => dialog.current.close()}>
+          X
+        </button>
+        <h3 style={{ fontSize: "2.5rem" }}>Added to Cart !</h3>
+        <button className="go-to-cart-button">
+          <Link to="/cart">Go to cart !</Link>
+        </button>
+        <br></br>
+        <button
+          className="continue-shopping-button"
+          onClick={() => dialog.current.close()}
+        >
+          Continue Shopping...
+        </button>
+      </dialog>
+
+      <h2>Product Details</h2>
       <div className="product-details">
-        <img src={product.image_link} alt={product.name} />
+        <img
+          src={product.image_link}
+          alt={product.name}
+          style={{ border: "1px solid white", boxShadow: "0px 0px 50px" }}
+        />
         <h2>{product.name}</h2>
-        <p>Category: {product.product_type}</p>
-        <p>Price: ${product.price} </p>
-        <p>Description: {product.description}</p>
         <p>
-          Where to shop:{" "}
+          <span>Category : </span>
+          <span className="details">{product.product_type}</span>
+        </p>
+        <p>
+          Price : <span className="details">${product.price}</span>{" "}
+        </p>
+        <p>
+          Description : <span className="details">{product.description}</span>
+        </p>
+        <p>
+          Where to shop :{" "}
           <a
+            className="where-to-shop"
             href={product.product_link}
             target="_blank"
             rel="noopener noreferrer"
@@ -36,8 +66,11 @@ function ProductsDetails({ handleAddToCart }) {
           </a>
         </p>
         <button
-          className="addtocart-button"
-          onClick={() => handleAddToCart(product)}
+          className="addtocart-button-details"
+          onClick={() => {
+            dialog.current.showModal();
+            handleAddToCart(product);
+          }}
         >
           {" "}
           Add To Cart{" "}

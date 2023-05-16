@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 function CartPage({ allProducts, handleDelete }) {
   return (
-    <div>
-      <h1>Cart</h1>
+    <div className="cart-page">
+      <h2>Cart Products</h2>
       <table className="cart">
         <thead>
           <tr>
@@ -11,7 +11,6 @@ function CartPage({ allProducts, handleDelete }) {
             <th> Name</th>
             <th>Unit Price</th>
             <th>Shop Link</th>
-
             <th>Action</th>
           </tr>
         </thead>
@@ -40,12 +39,11 @@ function CartPage({ allProducts, handleDelete }) {
               </td>
 
               <td className="action">
-                <button
-                  className="btn btn-remove"
+                <img
+                  className="remove-button"
+                  src="../public/assets/img/trash.png"
                   onClick={() => handleDelete(item.name)}
-                >
-                  Remove
-                </button>
+                ></img>
               </td>
             </tr>
           ))}

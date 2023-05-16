@@ -7,8 +7,20 @@ function Layout() {
     <>
       <nav className="layout-container">
         <div className="layout-banner">
-          <div className="welcome-text">
-            <p>Find all your favorite beauty products on our website...</p>
+          <div>
+            <Link to="/">
+              <img
+                className="home-logo"
+                src="../public/assets/img/home-logo.png"
+              ></img>
+            </Link>
+          </div>
+          <div className="links-to-pages">
+            <Link to="/face-products">Face</Link>
+            <Link to="/eyes-products">Eyes</Link>
+            <Link to="/lips-products">Lips</Link>
+            <Link to="/nails-products">Nails</Link>
+            <Link to="/all-products">All Products</Link>
           </div>
           <div className="flag">
             <img
@@ -23,7 +35,7 @@ function Layout() {
             />
             <Link to="/cart">
               <img
-                className="cart"
+                className="cart-logo"
                 src="/assets/img/istockphoto-1201806395-1024x1024.png"
                 alt="Cart"
               />
@@ -49,7 +61,7 @@ function Layout() {
             <p className="adress">
               MEZALI & MOI
               <br />
-              4 rue Maillard,
+              3 rue Maillard,
               <br />
               75011 Paris,
               <br />
@@ -58,15 +70,17 @@ function Layout() {
               +33 (0) 619 193 088
             </p>
             <h3>Follow us :</h3>
-            <ul>
+            <ul className="social-medias">
               <li>
-                <a href="#">Twitter</a>
+                <a href="https://twitter.com/?lang=fr">Twitter</a>
               </li>
               <li>
-                <a href="#">Facebook</a>
+                <a href="https://www.facebook.com/">Facebook</a>
               </li>
               <li>
-                <a href="#">Instagram</a>
+                <a href="https://www.instagram.com/accounts/login/?__coig_restricted=1">
+                  Instagram
+                </a>
               </li>
             </ul>
           </div>

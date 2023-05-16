@@ -9,11 +9,14 @@ function SearchProduct(props) {
   return (
     <>
       <div className="search-product">
-        <label>Search your beauty product : </label>
+        <label className="search-product-title">
+          {" "}
+          Search your beauty product :{" "}
+        </label>
         <br></br>
 
         <input
-          placeholder="Enter your search"
+          placeholder="Enter your search..."
           value={props.search}
           type="search"
           onChange={handleSearch}

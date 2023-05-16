@@ -19,8 +19,8 @@ function SearchCategoryPrice(props) {
   };
 
   return (
-    <form onSubmit={handleAdvancedSearch}>
-      <label htmlFor="category">Category:</label>
+    <form className="advanced-search" onSubmit={handleAdvancedSearch}>
+      <label htmlFor="category"> Category : </label>
       <select
         id="category"
         value={selectedCategory}
@@ -33,16 +33,19 @@ function SearchCategoryPrice(props) {
           </option>
         ))}
       </select>
-
-      <label htmlFor="price">Price:</label>
+      <br></br>
+      <label htmlFor="price"> Price : </label>
       <select id="price" value={selectedPrice} onChange={handlePriceChange}>
         <option value="">All</option>
         <option value="category-1">$0 - $10</option>
         <option value="category-2">$10 - $20</option>
         <option value="category-3">$20 and more</option>
       </select>
-
-      <button type="submit">Advanced Search</button>
+      <div>
+        <button className="advanced-button" type="submit">
+          Advanced Search
+        </button>
+      </div>
     </form>
   );
 }
