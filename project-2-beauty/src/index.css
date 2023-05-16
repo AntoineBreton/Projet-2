@@ -2,7 +2,7 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
+  width: 1400px;
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #d68c6a;
@@ -19,12 +19,13 @@ a {
   color: black;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #d68c6a;
 }
 
 h2:hover {
-  color: white;
+  color: black;
 }
 
 body {

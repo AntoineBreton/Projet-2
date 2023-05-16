@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import SearchProduct from "./SearchProduct";
@@ -9,6 +9,7 @@ function EyesProducts({ handleAddToCart }) {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [priceRange, setPriceRange] = useState("");
+  const dialog = useRef();
 
   useEffect(() => {
     axios
@@ -47,6 +48,23 @@ function EyesProducts({ handleAddToCart }) {
 
   return (
     <>
+      <dialog ref={dialog} className="popup">
+        <button className="close-button" onClick={() => dialog.current.close()}>
+          X
+        </button>
+        <h3 style={{ fontSize: "2.5rem" }}>Added to Cart !</h3>
+        <button className="go-to-cart-button">
+          <Link to="/cart">Go to cart !</Link>
+        </button>
+        <br></br>
+        <button
+          className="continue-shopping-button"
+          onClick={() => dialog.current.close()}
+        >
+          Continue Shopping...
+        </button>
+      </dialog>
+
       <h2>Eyes Products</h2>
       <SearchProduct search={search} setSearch={setSearch} />
       <SearchCategoryPrice
@@ -67,7 +85,10 @@ function EyesProducts({ handleAddToCart }) {
             </Link>
             <button
               className="addtocart-button"
-              onClick={() => handleAddToCart(product)}
+              onClick={() => {
+                dialog.current.showModal();
+                handleAddToCart(product);
+              }}
             >
               {" "}
               Add To Cart{" "}

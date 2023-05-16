@@ -15,10 +15,15 @@ import CartPage from "./CartPage";
 function App() {
   const [allProducts, setAllProducts] = useState([]);
   const [filteredProducts, setfilteredProducts] = useState(allProducts);
+  const [showPopup, setShowPopup] = useState(false);
 
   function handleAddToCart(product) {
     setAllProducts([...allProducts, product]);
   }
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
 
   function handleDelete(name) {
     const updatedAllProducts = allProducts.filter(
