@@ -64,6 +64,9 @@ function NailsProducts({ handleAddToCart }) {
 
   return (
     <>
+      {/* Création et apparition d'une fenêtre Pop-Up lorsque l'utilisateur clique sur le bouton "Add to cart" de manière à l'avertir que son produit a bien été ajouté à la page panier*/}
+      {/* Création d'un bouton permettant d'être redirigé directement à la page panier */}
+      {/* Création de deux boutons permettant à l'utilisateur de fermer la fenêtre Pop-up et de poursuivre son parcours client*/}
       <dialog ref={dialog} className="popup">
         <button className="close-button" onClick={() => dialog.current.close()}>
           X
@@ -82,7 +85,9 @@ function NailsProducts({ handleAddToCart }) {
       </dialog>
 
       <h2>Nails Products</h2>
+      {/* Création d'une barre de recherche intuitive, par nom du produit (fonction créée dans le component "SearchProduct") */}
       <SearchProduct search={search} setSearch={setSearch} />
+      {/* Création de deux barres de recherche à option, par catégorie et prix du produit (fonction créée dans le component "SearchCategoryprice") */}
       <SearchCategoryPrice
         options={["nail_polish"]}
         setCategory={setCategory}

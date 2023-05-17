@@ -33,36 +33,37 @@ function ProductsDetails({ handleAddToCart }) {
           Continue Shopping...
         </button>
       </dialog>
-
-      <h2>Product Details</h2>
-      <div className="product-details">
-        <img
-          src={product.image_link}
-          alt={product.name}
-          style={{ border: "1px solid white", boxShadow: "0px 0px 50px" }}
-        />
-        <h2>{product.name}</h2>
-        <p>
-          <span>Category : </span>
-          <span className="details">{product.product_type}</span>
-        </p>
-        <p>
-          Price : <span className="details">${product.price}</span>{" "}
-        </p>
-        <p>
-          Description : <span className="details">{product.description}</span>
-        </p>
-        <p>
-          Where to shop :{" "}
-          <a
-            className="where-to-shop"
-            href={product.product_link}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            ({product.product_link})
-          </a>
-        </p>
+      <div>
+        <h2>Product Details</h2>
+        <div className="product-details">
+          <img
+            src={product.image_link}
+            alt={product.name}
+            style={{ border: "1px solid white", boxShadow: "0px 0px 50px" }}
+          />
+          <h2>{product.name}</h2>
+          <p>
+            <span>Category : </span>
+            <span className="details">{product.product_type}</span>
+          </p>
+          <p>
+            Price : <span className="details">${product.price}</span>{" "}
+          </p>
+          <p style={{ marginLeft: "25px" }}>
+            Description : <span className="details">{product.description}</span>
+          </p>
+          <p>
+            Where to shop :{" "}
+            <a
+              className="where-to-shop"
+              href={product.product_link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              ({product.product_link})
+            </a>
+          </p>
+        </div>
         <button
           className="addtocart-button-details"
           onClick={() => {

@@ -15,15 +15,14 @@ import CartPage from "./CartPage";
 function App() {
   const [allProducts, setAllProducts] = useState([]);
   const [filteredProducts, setfilteredProducts] = useState(allProducts);
-  const [showPopup, setShowPopup] = useState(false);
+
+  // Fonction pour envoyer un produit sélectionner directement au panier, en cliquant sur le bouton "Add to cart"
 
   function handleAddToCart(product) {
     setAllProducts([...allProducts, product]);
   }
 
-  const handleClosePopup = () => {
-    setShowPopup(false);
-  };
+  // Fonction pour effacer un produit ayant été ajouté au panier, dans la page Panier
 
   function handleDelete(name) {
     const updatedAllProducts = allProducts.filter(
