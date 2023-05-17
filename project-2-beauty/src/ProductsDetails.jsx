@@ -8,11 +8,9 @@ function ProductsDetails({ handleAddToCart }) {
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(`http://makeup-api.herokuapp.com/api/v1/products/${id}.json`)
-      .then((response) => {
-        setProduct(response.data);
-      });
+    axios.get(`/api/products/${id}.json`).then((response) => {
+      setProduct(response.data);
+    });
   }, [id]);
 
   if (!product) return <div>Loading product details...</div>;

@@ -15,19 +15,15 @@ function AllProducts({ handleAddToCart }) {
   const dialog = useRef();
 
   useEffect(() => {
-    axios
-      .get(
-        "http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline"
-      )
-      .then((response) => {
-        setAllProducts(response.data);
-        setFilteredProducts(response.data);
+    axios.get("/api/products.json?brand=maybelline").then((response) => {
+      setAllProducts(response.data);
+      setFilteredProducts(response.data);
 
-        const types = [
-          ...new Set(response.data.map((product) => product.product_type)),
-        ];
-        setProductTypes(types);
-      });
+      const types = [
+        ...new Set(response.data.map((product) => product.product_type)),
+      ];
+      setProductTypes(types);
+    });
   }, []);
 
   useEffect(() => {

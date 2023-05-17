@@ -12,19 +12,15 @@ function EyesProducts({ handleAddToCart }) {
   const dialog = useRef();
 
   useEffect(() => {
-    axios
-      .get(
-        "http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline"
-      )
-      .then((response) => {
-        const filteredProducts = response.data.filter(
-          (product) =>
-            product.product_type === "eyeshadow" ||
-            product.product_type === "eyeliner" ||
-            product.product_type === "mascara"
-        );
-        setEyesProducts(filteredProducts);
-      });
+    axios.get("/api/products.json?brand=maybelline").then((response) => {
+      const filteredProducts = response.data.filter(
+        (product) =>
+          product.product_type === "eyeshadow" ||
+          product.product_type === "eyeliner" ||
+          product.product_type === "mascara"
+      );
+      setEyesProducts(filteredProducts);
+    });
   }, []);
 
   if (!eyesProducts.length) return <div>List of eye products loading...</div>;

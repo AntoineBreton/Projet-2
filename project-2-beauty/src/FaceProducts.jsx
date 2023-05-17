@@ -12,20 +12,16 @@ function FaceProducts({ handleAddToCart }) {
   const dialog = useRef();
 
   useEffect(() => {
-    axios
-      .get(
-        "http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline"
-      )
-      .then((response) => {
-        const filteredProducts = response.data.filter(
-          (product) =>
-            product.product_type === "foundation" ||
-            product.product_type === "powder" ||
-            product.product_type === "blush" ||
-            product.product_type === "bronzer"
-        );
-        setFaceProducts(filteredProducts);
-      });
+    axios.get("/api/products.json?brand=maybelline").then((response) => {
+      const filteredProducts = response.data.filter(
+        (product) =>
+          product.product_type === "foundation" ||
+          product.product_type === "powder" ||
+          product.product_type === "blush" ||
+          product.product_type === "bronzer"
+      );
+      setFaceProducts(filteredProducts);
+    });
   }, []);
 
   useEffect(() => {

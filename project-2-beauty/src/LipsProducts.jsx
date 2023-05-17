@@ -12,18 +12,14 @@ function LipsProducts({ handleAddToCart }) {
   const dialog = useRef();
 
   useEffect(() => {
-    axios
-      .get(
-        "http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline"
-      )
-      .then((response) => {
-        const filteredProducts = response.data.filter(
-          (product) =>
-            product.product_type === "lip_liner" ||
-            product.product_type === "lipstick"
-        );
-        setLipsProducts(filteredProducts);
-      });
+    axios.get("/api/products.json?brand=maybelline").then((response) => {
+      const filteredProducts = response.data.filter(
+        (product) =>
+          product.product_type === "lip_liner" ||
+          product.product_type === "lipstick"
+      );
+      setLipsProducts(filteredProducts);
+    });
   }, []);
 
   if (!lipsProducts.length) return <div>List of lip products loading...</div>;

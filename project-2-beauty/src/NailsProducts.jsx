@@ -12,21 +12,17 @@ function NailsProducts({ handleAddToCart }) {
   const dialog = useRef();
 
   useEffect(() => {
-    axios
-      .get(
-        "http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline"
-      )
-      .then((response) => {
-        const filteredProducts = response.data.filter(
-          (product) => product.product_type === "nail_polish"
-        );
-        setNailsProducts(filteredProducts);
+    axios.get("/api/products.json?brand=maybelline").then((response) => {
+      const filteredProducts = response.data.filter(
+        (product) => product.product_type === "nail_polish"
+      );
+      setNailsProducts(filteredProducts);
 
-        const types = response.data
-          .map((product) => product.product_type)
-          .filter((type, index, self) => self.indexOf(type) === index);
-        setProductTypes(types);
-      });
+      const types = response.data
+        .map((product) => product.product_type)
+        .filter((type, index, self) => self.indexOf(type) === index);
+      setProductTypes(types);
+    });
   }, []);
 
   useEffect(() => {
