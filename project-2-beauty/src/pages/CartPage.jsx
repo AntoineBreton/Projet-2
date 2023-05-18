@@ -41,7 +41,7 @@ function CartPage({ allProducts, handleDelete }) {
               <td className="action">
                 <img
                   className="remove-button"
-                  src="../public/assets/img/trash.png"
+                  src="/assets/img/trash.png"
                   onClick={() => handleDelete(item.name)}
                 ></img>
               </td>
