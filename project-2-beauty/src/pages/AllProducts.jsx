@@ -1,46 +1,43 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import SearchProduct from "./SearchProduct";
-import SearchCategoryPrice from "./SearchCategoryPrice";
+import SearchProduct from "../components/SearchProduct";
+import SearchCategoryPrice from "../components/SearchCategoryPrice";
 
-function FaceProducts({ handleAddToCart }) {
-  const [faceProducts, setFaceProducts] = useState([]);
+function AllProducts({ handleAddToCart }) {
+  const [allProducts, setAllProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [priceRange, setPriceRange] = useState("");
+  const [productTypes, setProductTypes] = useState([]);
   const dialog = useRef();
 
+  // Ici, l'utilisation d'un useEffect et d'axios, nous permet d'envoyer une requête à l'API, de maper puis de recevoir et display l'intégralité de notre liste de produits sur la page "All Products"
   useEffect(() => {
     axios.get("/api/products.json?brand=maybelline").then((response) => {
-      const filteredProducts = response.data.filter(
-        (product) =>
-          product.product_type === "foundation" ||
-          product.product_type === "powder" ||
-          product.product_type === "blush" ||
-          product.product_type === "bronzer"
-      );
-      setFaceProducts(filteredProducts);
+      setAllProducts(response.data);
+      setFilteredProducts(response.data);
+
+      const types = [
+        ...new Set(response.data.map((product) => product.product_type)),
+      ];
+      setProductTypes(types);
     });
   }, []);
 
+  // Ici l'utilisation d'un useEffect et des "if" conditions nous permet, lors de la recherche avancée de produit par "Category" et "Price", de mettre en place un système de filtrage plus précis en sélectionnant à l'intérieur de l'input le champs souhaité
   useEffect(() => {
     filterProducts();
   }, [search, category, priceRange]);
 
   const filterProducts = () => {
-    let filtered = faceProducts;
+    let filtered = allProducts;
 
     if (category) {
       filtered = filtered.filter(
         (product) =>
-          product.product_type.toLowerCase() === category.toLowerCase() ||
-          (category.toLowerCase() === "blush" &&
-            product.product_type.toLowerCase() === "blusher") ||
-          (category.toLowerCase() === "foundation" &&
-            product.product_type.toLowerCase() === "foundation") ||
-          (category.toLowerCase() === "powder" &&
-            product.product_type.toLowerCase() === "powder")
+          product.product_type.toLowerCase() === category.toLowerCase()
       );
     }
 
@@ -64,12 +61,7 @@ function FaceProducts({ handleAddToCart }) {
       }
     }
 
-    return filtered;
-  };
-
-  const handleAdvancedSearch = (selectedCategory, selectedPriceRange) => {
-    setCategory(selectedCategory);
-    setPriceRange(selectedPriceRange);
+    setFilteredProducts(filtered);
   };
 
   return (
@@ -94,19 +86,20 @@ function FaceProducts({ handleAddToCart }) {
         </button>
       </dialog>
 
-      <h2>Face Products</h2>
+      <h2>All Products</h2>
       {/* Création d'une barre de recherche intuitive, par nom du produit (fonction créée dans le component "SearchProduct") */}
       <SearchProduct search={search} setSearch={setSearch} />
       {/* Création de deux barres de recherche à option, par catégorie et prix du produit (fonction créée dans le component "SearchCategoryprice") */}
       <SearchCategoryPrice
-        options={["blush", "bronzer", "foundation", "powder"]}
+        options={productTypes}
         setCategory={setCategory}
         setPriceRange={setPriceRange}
       />
+
       <div className="main-container">
-        {filterProducts()
-          .filter((faceProduct) =>
-            faceProduct.name.toLowerCase().includes(search.toLowerCase())
+        {filteredProducts
+          .filter((product) =>
+            product.name.toLowerCase().includes(search.toLowerCase())
           )
           .map((product) => (
             <div key={product.id} className="container-all-products">
@@ -115,6 +108,7 @@ function FaceProducts({ handleAddToCart }) {
                   <img src={product.image_link} alt={product.name} />
                   <h2>{product.name}</h2>
                   <p>Category: {product.product_type}</p>
+
                   <p>Price: ${product.price} </p>
                 </div>
               </Link>
@@ -135,4 +129,4 @@ function FaceProducts({ handleAddToCart }) {
   );
 }
 
-export default FaceProducts;
+export default AllProducts;
