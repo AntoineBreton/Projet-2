@@ -7,6 +7,7 @@ function ProductsDetails({ handleAddToCart }) {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
 
+  // Ici, l'utilisation d'un useEffect, d'axios et de useParams, nous permet, lorsqu'on clique sur la carte d'un produit, d'envoyer une requête à l'API et de recevoir puis display le produit sélectionné à l'intérieur d'une nouvelle page "Product Details"
   useEffect(() => {
     axios.get(`/api/products/${id}.json`).then((response) => {
       setProduct(response.data);
@@ -34,6 +35,7 @@ function ProductsDetails({ handleAddToCart }) {
         </button>
       </dialog>
       <div>
+        {/* A la différence de la carte produit sur laquelle nous avons cliqué sur la page précédente, ici nous en avons profité pour display cette même carte produit, mais en demandant à l'API de nous retourner davantage de détails (key : "Description", key : "product_link") à propos du produit sélectionné désormais display sur une nouvelle page */}
         <h2>Product Details</h2>
         <div className="product-details">
           <img

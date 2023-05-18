@@ -1,11 +1,11 @@
 @font-face {
   font-family: "Mezali&Moi";
-  src: url("/font/adelia_3/adelia.ttf");
+  src: url("../public/font/adelia_3/adelia.ttf");
 }
 
 @font-face {
   font-family: "&";
-  src: url("/font/cherolina/Cherolina.ttf");
+  src: url("../public/font/cherolina/Cherolina.ttf");
 }
 
 #root {
@@ -13,7 +13,48 @@
   text-align: center;
 }
 
-/* CSS bannière */
+/* .logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+} */
+
+.fr-flag {
+  height: 25px;
+  margin-right: 10px;
+}
+
+.uk-flag {
+  height: 25px;
+  margin-right: 8px;
+}
+
+.cart-logo {
+  height: 25px;
+}
+.layout-banner {
+  display: flex;
+  justify-content: space-around;
+  background-color: white;
+  border-bottom: 0.5px solid black;
+  width: 100vw;
+  height: 10vh;
+}
+
+/* .welcome-text {
+  color: #d68c6a;
+  font-style: italic;
+  font-weight: 500;
+  padding: 1rem;
+  display: flex;
+} */
 
 .home-logo {
   width: 40px;
@@ -31,37 +72,12 @@
   padding: 2rem;
 }
 
-.fr-flag {
-  height: 25px;
-  margin-right: 10px;
-}
-
-.uk-flag {
-  height: 25px;
-  margin-right: 8px;
-}
-
-.cart-logo {
-  height: 25px;
-}
-
-.layout-banner {
-  display: flex;
-  justify-content: space-around;
-  background-color: white;
-  border-bottom: 0.5px solid black;
-  width: 100vw;
-  height: 10vh;
-}
-
 .flag {
   margin-left: 350px;
   margin-top: 30px;
   display: flex;
   justify-content: space-evenly;
 }
-
-/* CSS titres de toutes les pages */
 
 .layout-title {
   display: flex;
@@ -84,18 +100,6 @@ h2 {
   color: white;
   font-size: 2rem;
   font-style: italic;
-}
-
-h3 {
-  color: #d68c6a;
-}
-
-/* CSS des pages produits */
-
-.main-container {
-  display: flex;
-  flex-wrap: wrap;
-  margin: auto;
 }
 
 .container {
@@ -124,8 +128,6 @@ h3 {
   justify-content: center;
   font-size: 2rem;
 }
-
-/* CSS des boutons homepage */
 
 .button-face {
   border: 2px solid white;
@@ -174,15 +176,17 @@ h3 {
   font-style: italic;
 }
 
-/* CSS des cartes produits sur chaque page produit */
+.main-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+}
 
 .container-all-products {
   margin: auto;
   height: 400px;
-  width: 400px;
-  margin-top: 80px;
-  margin-bottom: 100px;
-  margin-left: 65px;
+  width: 200px;
+
   box-sizing: border-box;
 }
 
@@ -227,20 +231,6 @@ h3 {
   color: black;
 }
 
-.addtocart-button {
-  color: white;
-  background-color: #8a5c46;
-
-  margin-top: -20px;
-  margin-right: 50px;
-  width: 200px;
-}
-
-.addtocart-button:hover {
-  color: white;
-}
-/* CSS des 3 barres de recherche */
-
 .search-product {
   margin-bottom: 50px;
 }
@@ -269,22 +259,18 @@ h3 {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* CSS fenêtre POP-UP "added to cart" */
-
 .popup {
-  background-color: rgba(0, 0, 0, 0.88);
+  background-color: rgba(0, 0, 0, 0.74);
   width: 500px;
-  height: 450px;
+  height: 400px;
   margin: auto;
-  border: 1px solid black;
-  border-radius: 10px;
+  border-radius: 20px;
 }
 
 .close-button {
   margin-left: 460px;
   background: none;
-  font-size: 1rem;
-  font-weight: bolder;
+  font-size: 0.8rem;
 }
 
 .go-to-cart-button {
@@ -305,8 +291,6 @@ h3 {
   color: #d68c6a;
 }
 
-/* CSS page de produit détaillé */
-
 .details {
   color: black;
   font-style: italic;
@@ -321,19 +305,6 @@ h3 {
   color: blue;
 }
 
-.addtocart-button-details {
-  color: white;
-  background-color: #8a5c46;
-  width: 200px;
-  margin-top: 30px;
-}
-
-/* CSS de la page Panier */
-
-.cart {
-  margin: auto;
-}
-
 .cart th {
   border: 1px solid white;
 }
@@ -342,24 +313,21 @@ h3 {
   border: 1px solid white;
 }
 
-.product img {
-  width: 60px;
+.cart {
+  margin: auto;
 }
 
-.shop-link a:hover {
-  color: rgb(16, 56, 215);
-}
-
-.shop-link {
-  font-size: 0.6rem;
-}
-
-.remove-button:hover {
+.remove-button {
   width: 30px;
   height: 40px;
 }
 
-/* CSS du footer */
+.adress {
+  font-style: normal;
+  font-size: 0.8em;
+  color: white;
+  margin: 0px 0px 30px 0px;
+}
 
 .footer-container {
   width: 1000px;
@@ -370,13 +338,6 @@ h3 {
   justify-content: space-around;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.3);
-}
-
-.adress {
-  font-style: normal;
-  font-size: 0.8em;
-  color: white;
-  margin: 0px 0px 30px 0px;
 }
 
 .footer-container a {
@@ -395,6 +356,18 @@ h3 {
 .map-frame {
   height: 320px;
   width: 50%;
+}
+
+.product img {
+  width: 60px;
+}
+
+.shop-link a:hover {
+  color: rgb(16, 56, 215);
+}
+
+.shop-link {
+  font-size: 0.6rem;
 }
 
 @keyframes logo-spin {
@@ -418,4 +391,22 @@ h3 {
 
 .read-the-docs {
   color: #888;
+}
+
+.addtocart-button {
+  color: white;
+  background-color: #8a5c46;
+  margin: auto;
+  margin-top: 10px;
+  width: 200px;
+}
+
+.addtocart-button:hover {
+  color: white;
+}
+.addtocart-button-details {
+  color: white;
+  background-color: #8a5c46;
+  width: 200px;
+  margin-top: 30px;
 }

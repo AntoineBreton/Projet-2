@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import SearchProduct from "./SearchProduct";
-import SearchCategoryPrice from "./SearchCategoryPrice";
+import SearchProduct from "../components/SearchProduct";
+import SearchCategoryPrice from "../components/SearchCategoryPrice";
 
 function NailsProducts({ handleAddToCart }) {
   const [nailsProducts, setNailsProducts] = useState([]);
@@ -24,6 +24,9 @@ function NailsProducts({ handleAddToCart }) {
       setProductTypes(types);
     });
   }, []);
+
+  // if (!nailsProducts.length)
+  //   return <div>List of nails products loading...</div>;
 
   useEffect(() => {
     filterProducts();

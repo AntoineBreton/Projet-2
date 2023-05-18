@@ -11,7 +11,10 @@ function Layout() {
         <div className="layout-banner">
           <div>
             <Link to="/">
-              <img className="home-logo" src="/assets/img/home-logo.png"></img>
+              <img
+                className="home-logo"
+                src="/assets/img/home-button.png"
+              ></img>
             </Link>
           </div>
           {/* A l'intérieur de notre bannière statique, nous avons créé et Linké les path de chacune de nos catégories de produit, de manièrere à ce que l'utilisateur puisse, à n'importe quel moment de son parcours, se rendre sur la page produit de son choix (sans nécesserement retourner à l'accueil de l'app web)  */}

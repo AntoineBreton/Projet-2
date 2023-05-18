@@ -1,42 +1,47 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import SearchProduct from "./SearchProduct";
-import SearchCategoryPrice from "./SearchCategoryPrice";
-import "./App.css";
+import SearchProduct from "../components/SearchProduct";
+import SearchCategoryPrice from "../components/SearchCategoryPrice";
 
-function AllProducts({ handleAddToCart }) {
-  const [allProducts, setAllProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
+function FaceProducts({ handleAddToCart }) {
+  const [faceProducts, setFaceProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [priceRange, setPriceRange] = useState("");
-  const [productTypes, setProductTypes] = useState([]);
   const dialog = useRef();
 
   useEffect(() => {
     axios.get("/api/products.json?brand=maybelline").then((response) => {
-      setAllProducts(response.data);
-      setFilteredProducts(response.data);
-
-      const types = [
-        ...new Set(response.data.map((product) => product.product_type)),
-      ];
-      setProductTypes(types);
+      const filteredProducts = response.data.filter(
+        (product) =>
+          product.product_type === "foundation" ||
+          product.product_type === "powder" ||
+          product.product_type === "blush" ||
+          product.product_type === "bronzer"
+      );
+      setFaceProducts(filteredProducts);
     });
   }, []);
+  if (!faceProducts.length) return <div>List of face products loading...</div>;
 
   useEffect(() => {
     filterProducts();
   }, [search, category, priceRange]);
 
   const filterProducts = () => {
-    let filtered = allProducts;
+    let filtered = faceProducts;
 
     if (category) {
       filtered = filtered.filter(
         (product) =>
-          product.product_type.toLowerCase() === category.toLowerCase()
+          product.product_type.toLowerCase() === category.toLowerCase() ||
+          (category.toLowerCase() === "blush" &&
+            product.product_type.toLowerCase() === "blusher") ||
+          (category.toLowerCase() === "foundation" &&
+            product.product_type.toLowerCase() === "foundation") ||
+          (category.toLowerCase() === "powder" &&
+            product.product_type.toLowerCase() === "powder")
       );
     }
 
@@ -60,7 +65,12 @@ function AllProducts({ handleAddToCart }) {
       }
     }
 
-    setFilteredProducts(filtered);
+    return filtered;
+  };
+
+  const handleAdvancedSearch = (selectedCategory, selectedPriceRange) => {
+    setCategory(selectedCategory);
+    setPriceRange(selectedPriceRange);
   };
 
   return (
@@ -85,20 +95,19 @@ function AllProducts({ handleAddToCart }) {
         </button>
       </dialog>
 
-      <h2>All Products</h2>
+      <h2>Face Products</h2>
       {/* Création d'une barre de recherche intuitive, par nom du produit (fonction créée dans le component "SearchProduct") */}
       <SearchProduct search={search} setSearch={setSearch} />
       {/* Création de deux barres de recherche à option, par catégorie et prix du produit (fonction créée dans le component "SearchCategoryprice") */}
       <SearchCategoryPrice
-        options={productTypes}
+        options={["blush", "bronzer", "foundation", "powder"]}
         setCategory={setCategory}
         setPriceRange={setPriceRange}
       />
-
       <div className="main-container">
-        {filteredProducts
-          .filter((product) =>
-            product.name.toLowerCase().includes(search.toLowerCase())
+        {filterProducts()
+          .filter((faceProduct) =>
+            faceProduct.name.toLowerCase().includes(search.toLowerCase())
           )
           .map((product) => (
             <div key={product.id} className="container-all-products">
@@ -107,7 +116,6 @@ function AllProducts({ handleAddToCart }) {
                   <img src={product.image_link} alt={product.name} />
                   <h2>{product.name}</h2>
                   <p>Category: {product.product_type}</p>
-                  <br></br>
                   <p>Price: ${product.price} </p>
                 </div>
               </Link>
@@ -128,4 +136,4 @@ function AllProducts({ handleAddToCart }) {
   );
 }
 
-export default AllProducts;
+export default FaceProducts;
