@@ -24,15 +24,12 @@ function FaceProducts({ handleAddToCart }) {
     });
   }, []);
 
-  if (!faceProducts.length) return <div>List of face products loading...</div>;
-
-
   useEffect(() => {
     filterProducts();
   }, [search, category, priceRange]);
 
   const filterProducts = () => {
-    let filtered = faceProducts;
+    let filtered = [...faceProducts];
 
     if (category) {
       filtered = filtered.filter(
@@ -75,6 +72,7 @@ function FaceProducts({ handleAddToCart }) {
     setPriceRange(selectedPriceRange);
   };
 
+  if (!faceProducts.length) return <div>List of face products loading...</div>;
   return (
     <>
       {/* Création et apparition d'une fenêtre Pop-Up lorsque l'utilisateur clique sur le bouton "Add to cart" de manière à l'avertir que son produit a bien été ajouté à la page panier*/}
