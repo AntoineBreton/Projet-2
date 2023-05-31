@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 
 import "./App.css";
+
 import Layout from "./Layout";
+
 import Home from "./pages/Home";
 import { Routes, Route } from "react-router-dom";
 import AllProducts from "./pages/AllProducts";
@@ -22,7 +24,7 @@ function App() {
     setAllProducts([...allProducts, product]);
   }
 
-  // Fonction pour effacer un produit ayant été ajouté au panier, dans la page Panier
+  // Fonction pour effacer un produit ayant été ajouté au panier, dans la page "Panier"
 
   function handleDelete(name) {
     const updatedAllProducts = allProducts.filter(

@@ -25,6 +25,11 @@ function NailsProducts({ handleAddToCart }) {
     });
   }, []);
 
+
+  // if (!nailsProducts.length)
+  //   return <div>List of nails products loading...</div>;
+
+
   useEffect(() => {
     filterProducts();
   }, [search, category, priceRange]);

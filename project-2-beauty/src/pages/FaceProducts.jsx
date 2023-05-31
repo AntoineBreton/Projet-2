@@ -24,6 +24,9 @@ function FaceProducts({ handleAddToCart }) {
     });
   }, []);
 
+  if (!faceProducts.length) return <div>List of face products loading...</div>;
+
+
   useEffect(() => {
     filterProducts();
   }, [search, category, priceRange]);

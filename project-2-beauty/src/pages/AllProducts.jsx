@@ -5,6 +5,7 @@ import SearchProduct from "../components/SearchProduct";
 import SearchCategoryPrice from "../components/SearchCategoryPrice";
 import "../App.css";
 
+
 function AllProducts({ handleAddToCart }) {
   const [allProducts, setAllProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -13,6 +14,7 @@ function AllProducts({ handleAddToCart }) {
   const [priceRange, setPriceRange] = useState("");
   const [productTypes, setProductTypes] = useState([]);
   const dialog = useRef();
+
 
   useEffect(() => {
     axios.get("/api/products.json?brand=maybelline").then((response) => {
@@ -25,6 +27,7 @@ function AllProducts({ handleAddToCart }) {
       setProductTypes(types);
     });
   }, []);
+
 
   useEffect(() => {
     filterProducts();
@@ -108,6 +111,7 @@ function AllProducts({ handleAddToCart }) {
                   <h2>{product.name}</h2>
                   <p>Category: {product.product_type}</p>
                   <br></br>
+
                   <p>Price: ${product.price} </p>
                 </div>
               </Link>

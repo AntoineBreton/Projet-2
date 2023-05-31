@@ -34,6 +34,7 @@ function ProductsDetails({ handleAddToCart }) {
         </button>
       </dialog>
       <div>
+
         <h2>Product Details</h2>
         <div className="product-details">
           <img

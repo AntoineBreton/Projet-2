@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 
+
 function Layout() {
   return (
     <>
@@ -11,10 +12,12 @@ function Layout() {
             <Link to="/">
               <img
                 className="home-logo"
-                src="../public/assets/img/home-logo.png"
+
+                src="/assets/img/home-logo.png"
               ></img>
             </Link>
           </div>
+
           <div className="links-to-pages">
             <Link to="/face-products">Face</Link>
             <Link to="/eyes-products">Eyes</Link>
@@ -33,6 +36,7 @@ function Layout() {
               src="/assets/img/royaume-uni.png"
               alt="UK"
             />
+
             <Link to="/cart">
               <img
                 className="cart-logo"
