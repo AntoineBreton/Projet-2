@@ -1,30 +1,35 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import SearchProduct from "./SearchProduct";
-import SearchCategoryPrice from "./SearchCategoryPrice";
+import SearchProduct from "../components/SearchProduct";
+import SearchCategoryPrice from "../components/SearchCategoryPrice";
 
-function LipsProducts({ handleAddToCart }) {
-  const [lipsProducts, setLipsProducts] = useState([]);
+function EyesProducts({ handleAddToCart }) {
+  const [eyesProducts, setEyesProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [priceRange, setPriceRange] = useState("");
   const dialog = useRef();
 
   useEffect(() => {
-    axios.get("/api/products.json?brand=maybelline").then((response) => {
-      const filteredProducts = response.data.filter(
-        (product) =>
-          product.product_type === "lip_liner" ||
-          product.product_type === "lipstick"
-      );
-      setLipsProducts(filteredProducts);
-    });
+    axios
+      .get(
+        "http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline"
+      )
+      .then((response) => {
+        const filteredProducts = response.data.filter(
+          (product) =>
+            product.product_type === "eyeshadow" ||
+            product.product_type === "eyeliner" ||
+            product.product_type === "mascara"
+        );
+        setEyesProducts(filteredProducts);
+      });
   }, []);
 
-  if (!lipsProducts.length) return <div>List of lip products loading...</div>;
+  if (!eyesProducts.length) return <div>List of eye products loading...</div>;
 
-  const filteredProducts = lipsProducts
+  const filteredProducts = eyesProducts
     .filter((product) =>
       product.name.toLowerCase().includes(search.toLowerCase())
     )
@@ -43,9 +48,6 @@ function LipsProducts({ handleAddToCart }) {
 
   return (
     <>
-      {/* Création et apparition d'une fenêtre Pop-Up lorsque l'utilisateur clique sur le bouton "Add to cart" de manière à l'avertir que son produit a bien été ajouté à la page panier*/}
-      {/* Création d'un bouton permettant d'être redirigé directement à la page panier */}
-      {/* Création de deux boutons permettant à l'utilisateur de fermer la fenêtre Pop-up et de poursuivre son parcours client*/}
       <dialog ref={dialog} className="popup">
         <button className="close-button" onClick={() => dialog.current.close()}>
           X
@@ -63,12 +65,10 @@ function LipsProducts({ handleAddToCart }) {
         </button>
       </dialog>
 
-      <h2>Lips Products</h2>
-      {/* Création d'une barre de recherche intuitive, par nom du produit (fonction créée dans le component "SearchProduct") */}
+      <h2>Eyes Products</h2>
       <SearchProduct search={search} setSearch={setSearch} />
-      {/* Création de deux barres de recherche à option, par catégorie et prix du produit (fonction créée dans le component "SearchCategoryprice") */}
       <SearchCategoryPrice
-        options={["lip_liner", "lipstick"]}
+        options={["eyeshadow", "eyeliner", "mascara"]}
         setCategory={setCategory}
         setPriceRange={setPriceRange}
       />
@@ -79,9 +79,8 @@ function LipsProducts({ handleAddToCart }) {
               <div className="products-list">
                 <img src={product.image_link} alt={product.name} />
                 <h2>{product.name}</h2>
-                <p> Category: {product.product_type}</p>
-                <br></br>
-                <p> Price: ${product.price} </p>
+                <p>Category: {product.product_type}</p>
+                <p>Price: ${product.price} </p>
               </div>
             </Link>
             <button
@@ -101,4 +100,4 @@ function LipsProducts({ handleAddToCart }) {
   );
 }
 
-export default LipsProducts;
+export default EyesProducts;

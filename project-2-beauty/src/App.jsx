@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import "./App.css";
 import Layout from "./Layout";
-import Home from "./Home";
+import Home from "./pages/Home";
 import { Routes, Route } from "react-router-dom";
 import AllProducts from "./pages/AllProducts";
 import FaceProducts from "./pages/FaceProducts";

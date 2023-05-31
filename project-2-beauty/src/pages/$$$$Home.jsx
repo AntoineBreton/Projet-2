@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-// Fonction permettant d'être renvoyé vers la page relative à chaque catégorie de produit (Face, Eyes, Nails, Lips, All products), en cliquant sur le bouton à lintérieur duquel un path de destination est Linké
-
 function Home() {
   return (
     <>

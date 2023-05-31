@@ -1,27 +1,32 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import SearchProduct from "./SearchProduct";
-import SearchCategoryPrice from "./SearchCategoryPrice";
+import SearchProduct from "../components/SearchProduct";
+import SearchCategoryPrice from "../components/SearchCategoryPrice";
 
-function FaceProducts({ handleAddToCart }) {
-  const [faceProducts, setFaceProducts] = useState([]);
+function NailsProducts({ handleAddToCart }) {
+  const [nailsProducts, setNailsProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [priceRange, setPriceRange] = useState("");
   const dialog = useRef();
 
   useEffect(() => {
-    axios.get("/api/products.json?brand=maybelline").then((response) => {
-      const filteredProducts = response.data.filter(
-        (product) =>
-          product.product_type === "foundation" ||
-          product.product_type === "powder" ||
-          product.product_type === "blush" ||
-          product.product_type === "bronzer"
-      );
-      setFaceProducts(filteredProducts);
-    });
+    axios
+      .get(
+        "http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline"
+      )
+      .then((response) => {
+        const filteredProducts = response.data.filter(
+          (product) => product.product_type === "nail_polish"
+        );
+        setNailsProducts(filteredProducts);
+
+        const types = response.data
+          .map((product) => product.product_type)
+          .filter((type, index, self) => self.indexOf(type) === index);
+        setProductTypes(types);
+      });
   }, []);
 
   useEffect(() => {
@@ -29,18 +34,12 @@ function FaceProducts({ handleAddToCart }) {
   }, [search, category, priceRange]);
 
   const filterProducts = () => {
-    let filtered = faceProducts;
+    let filtered = nailsProducts;
 
     if (category) {
       filtered = filtered.filter(
         (product) =>
-          product.product_type.toLowerCase() === category.toLowerCase() ||
-          (category.toLowerCase() === "blush" &&
-            product.product_type.toLowerCase() === "blusher") ||
-          (category.toLowerCase() === "foundation" &&
-            product.product_type.toLowerCase() === "foundation") ||
-          (category.toLowerCase() === "powder" &&
-            product.product_type.toLowerCase() === "powder")
+          product.product_type.toLowerCase() === category.toLowerCase()
       );
     }
 
@@ -67,16 +66,8 @@ function FaceProducts({ handleAddToCart }) {
     return filtered;
   };
 
-  const handleAdvancedSearch = (selectedCategory, selectedPriceRange) => {
-    setCategory(selectedCategory);
-    setPriceRange(selectedPriceRange);
-  };
-
   return (
     <>
-      {/* Création et apparition d'une fenêtre Pop-Up lorsque l'utilisateur clique sur le bouton "Add to cart" de manière à l'avertir que son produit a bien été ajouté à la page panier*/}
-      {/* Création d'un bouton permettant d'être redirigé directement à la page panier */}
-      {/* Création de deux boutons permettant à l'utilisateur de fermer la fenêtre Pop-up et de poursuivre son parcours client*/}
       <dialog ref={dialog} className="popup">
         <button className="close-button" onClick={() => dialog.current.close()}>
           X
@@ -94,19 +85,17 @@ function FaceProducts({ handleAddToCart }) {
         </button>
       </dialog>
 
-      <h2>Face Products</h2>
-      {/* Création d'une barre de recherche intuitive, par nom du produit (fonction créée dans le component "SearchProduct") */}
+      <h2>Nails Products</h2>
       <SearchProduct search={search} setSearch={setSearch} />
-      {/* Création de deux barres de recherche à option, par catégorie et prix du produit (fonction créée dans le component "SearchCategoryprice") */}
       <SearchCategoryPrice
-        options={["blush", "bronzer", "foundation", "powder"]}
+        options={["nail_polish"]}
         setCategory={setCategory}
         setPriceRange={setPriceRange}
       />
       <div className="main-container">
         {filterProducts()
-          .filter((faceProduct) =>
-            faceProduct.name.toLowerCase().includes(search.toLowerCase())
+          .filter((product) =>
+            product.name.toLowerCase().includes(search.toLowerCase())
           )
           .map((product) => (
             <div key={product.id} className="container-all-products">
@@ -135,4 +124,4 @@ function FaceProducts({ handleAddToCart }) {
   );
 }
 
-export default FaceProducts;
+export default NailsProducts;
