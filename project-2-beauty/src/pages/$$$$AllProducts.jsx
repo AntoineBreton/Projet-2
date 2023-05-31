@@ -4,38 +4,37 @@ import axios from "axios";
 import SearchProduct from "../components/SearchProduct";
 import SearchCategoryPrice from "../components/SearchCategoryPrice";
 
-function NailsProducts({ handleAddToCart }) {
-  const [nailsProducts, setNailsProducts] = useState([]);
+function AllProducts({ handleAddToCart }) {
+  const [allProducts, setAllProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [priceRange, setPriceRange] = useState("");
+  const [productTypes, setProductTypes] = useState([]);
   const dialog = useRef();
 
   useEffect(() => {
-    axios.get("/api/products.json?brand=maybelline").then((response) => {
-      const filteredProducts = response.data.filter(
-        (product) => product.product_type === "nail_polish"
-      );
-      setNailsProducts(filteredProducts);
+    axios
+      .get(
+        "http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline"
+      )
+      .then((response) => {
+        setAllProducts(response.data);
+        setFilteredProducts(response.data);
 
-      const types = response.data
-        .map((product) => product.product_type)
-        .filter((type, index, self) => self.indexOf(type) === index);
-      setProductTypes(types);
-    });
+        const types = [
+          ...new Set(response.data.map((product) => product.product_type)),
+        ];
+        setProductTypes(types);
+      });
   }, []);
-
-
-  // if (!nailsProducts.length)
-  //   return <div>List of nails products loading...</div>;
-
 
   useEffect(() => {
     filterProducts();
   }, [search, category, priceRange]);
 
   const filterProducts = () => {
-    let filtered = nailsProducts;
+    let filtered = allProducts;
 
     if (category) {
       filtered = filtered.filter(
@@ -64,14 +63,11 @@ function NailsProducts({ handleAddToCart }) {
       }
     }
 
-    return filtered;
+    setFilteredProducts(filtered);
   };
 
   return (
     <>
-      {/* Création et apparition d'une fenêtre Pop-Up lorsque l'utilisateur clique sur le bouton "Add to cart" de manière à l'avertir que son produit a bien été ajouté à la page panier*/}
-      {/* Création d'un bouton permettant d'être redirigé directement à la page panier */}
-      {/* Création de deux boutons permettant à l'utilisateur de fermer la fenêtre Pop-up et de poursuivre son parcours client*/}
       <dialog ref={dialog} className="popup">
         <button className="close-button" onClick={() => dialog.current.close()}>
           X
@@ -89,17 +85,16 @@ function NailsProducts({ handleAddToCart }) {
         </button>
       </dialog>
 
-      <h2>Nails Products</h2>
-      {/* Création d'une barre de recherche intuitive, par nom du produit (fonction créée dans le component "SearchProduct") */}
+      <h2>All Products</h2>
       <SearchProduct search={search} setSearch={setSearch} />
-      {/* Création de deux barres de recherche à option, par catégorie et prix du produit (fonction créée dans le component "SearchCategoryprice") */}
       <SearchCategoryPrice
-        options={["nail_polish"]}
+        options={productTypes}
         setCategory={setCategory}
         setPriceRange={setPriceRange}
       />
+
       <div className="main-container">
-        {filterProducts()
+        {filteredProducts
           .filter((product) =>
             product.name.toLowerCase().includes(search.toLowerCase())
           )
@@ -110,6 +105,7 @@ function NailsProducts({ handleAddToCart }) {
                   <img src={product.image_link} alt={product.name} />
                   <h2>{product.name}</h2>
                   <p>Category: {product.product_type}</p>
+                  <br></br>
                   <p>Price: ${product.price} </p>
                 </div>
               </Link>
@@ -130,4 +126,4 @@ function NailsProducts({ handleAddToCart }) {
   );
 }
 
-export default NailsProducts;
+export default AllProducts;

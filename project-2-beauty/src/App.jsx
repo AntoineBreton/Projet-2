@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 
 import "./App.css";
-import Layout from "./components/Layout";
+
+import Layout from "./Layout";
+
 import Home from "./pages/Home";
 import { Routes, Route } from "react-router-dom";
 import AllProducts from "./pages/AllProducts";

@@ -23,7 +23,9 @@ function FaceProducts({ handleAddToCart }) {
       setFaceProducts(filteredProducts);
     });
   }, []);
+
   if (!faceProducts.length) return <div>List of face products loading...</div>;
+
 
   useEffect(() => {
     filterProducts();

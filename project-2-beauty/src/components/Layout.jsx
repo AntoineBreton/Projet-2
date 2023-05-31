@@ -2,7 +2,6 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-// création d'un Layout statique apparaissant à l'intérieur de toutes nos pages , comprenant une bannière (header) et un footer inamovibles.
 
 function Layout() {
   return (
@@ -13,11 +12,12 @@ function Layout() {
             <Link to="/">
               <img
                 className="home-logo"
-                src="/assets/img/home-button.png"
+
+                src="/assets/img/home-logo.png"
               ></img>
             </Link>
           </div>
-          {/* A l'intérieur de notre bannière statique, nous avons créé et Linké les path de chacune de nos catégories de produit, de manièrere à ce que l'utilisateur puisse, à n'importe quel moment de son parcours, se rendre sur la page produit de son choix (sans nécesserement retourner à l'accueil de l'app web)  */}
+
           <div className="links-to-pages">
             <Link to="/face-products">Face</Link>
             <Link to="/eyes-products">Eyes</Link>
@@ -36,7 +36,7 @@ function Layout() {
               src="/assets/img/royaume-uni.png"
               alt="UK"
             />
-            {/* Le Link ci-dessous permet à l'utilisateur de cliquer sur le logo "cart" de la bannière et d'ouvrir la page panier. */}
+
             <Link to="/cart">
               <img
                 className="cart-logo"
@@ -55,7 +55,7 @@ function Layout() {
           </Link>
         </div>
       </nav>
-      {/* Création d'un "Outlet" dans notre Layout de manière à obliger l'intégralité du contenu de toutes nos pages à être chaque fois positionné entre notre header et notre footer */}
+
       <Outlet />
 
       <div className="footer-background">

@@ -6,7 +6,6 @@ function SearchProduct(props) {
     props.setSearch(searchValue);
   }
 
-  // Création d'une barre de recherche intuitive, qui grâce à la fontion handleSearch intégrée dans le onChange de l'input, permet à l'utilisateur de filtrer sa recherche et trouver plus rapidement un produit
   return (
     <>
       <div className="search-product">

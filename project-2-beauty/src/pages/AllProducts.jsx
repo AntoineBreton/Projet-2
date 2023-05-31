@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import SearchProduct from "../components/SearchProduct";
 import SearchCategoryPrice from "../components/SearchCategoryPrice";
+import "../App.css";
+
 
 function AllProducts({ handleAddToCart }) {
   const [allProducts, setAllProducts] = useState([]);
@@ -13,7 +15,7 @@ function AllProducts({ handleAddToCart }) {
   const [productTypes, setProductTypes] = useState([]);
   const dialog = useRef();
 
-  // Ici, l'utilisation d'un useEffect et d'axios, nous permet d'envoyer une requête à l'API, de maper puis de recevoir et display l'intégralité de notre liste de produits sur la page "All Products"
+
   useEffect(() => {
     axios.get("/api/products.json?brand=maybelline").then((response) => {
       setAllProducts(response.data);
@@ -26,7 +28,7 @@ function AllProducts({ handleAddToCart }) {
     });
   }, []);
 
-  // Ici l'utilisation d'un useEffect et des "if" conditions nous permet, lors de la recherche avancée de produit par "Category" et "Price", de mettre en place un système de filtrage plus précis en sélectionnant à l'intérieur de l'input le champs souhaité
+
   useEffect(() => {
     filterProducts();
   }, [search, category, priceRange]);
@@ -108,6 +110,7 @@ function AllProducts({ handleAddToCart }) {
                   <img src={product.image_link} alt={product.name} />
                   <h2>{product.name}</h2>
                   <p>Category: {product.product_type}</p>
+                  <br></br>
 
                   <p>Price: ${product.price} </p>
                 </div>
